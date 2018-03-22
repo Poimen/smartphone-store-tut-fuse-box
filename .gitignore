@@ -58,4 +58,4 @@ typings/
 .env
 
 # fuse-box working dir
-.fuse-box
+.fusebox
