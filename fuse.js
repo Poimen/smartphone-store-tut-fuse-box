@@ -8,73 +8,74 @@ const {
   CSSResourcePlugin,
   WebIndexPlugin,
   Sparky
-} = require("fuse-box");
+} = require('fuse-box');
 
 let fuse;
 let isProduction = false;
 
-Sparky.task("set-prod", () => {
-  isProduction = true;
-});
-Sparky.task("clean", () => Sparky.src("./dist").clean("dist/"));
-Sparky.task("watch-assets", () => Sparky.watch("./assets", { base: "./src" }).dest("./dist"));
-Sparky.task("copy-assets", () => Sparky.src("./assets", { base: "./src" }).dest("./dist"));
-
-Sparky.task("config", () => {
+Sparky.task('config', () => {
   fuse = FuseBox.init({
-      homeDir: "./src",
-      output: "dist/$name.js",
-      //hash: isProduction,
-      sourceMaps: !isProduction,
-      useTypescriptCompiler: true,
-      polyfillNonStandardDefaultUsage: true,
-      plugins: [
-          VueComponentPlugin({
-              style: [
-                  SassPlugin({
-                      importer: true
-                  }),
-                  CSSResourcePlugin(),
-                  CSSPlugin({
-                      group: 'components.css',
-                      inject: 'components.css'
-                  })
-              ]
+    homeDir: './src',
+    output: 'dist/$name.js',
+    sourceMaps: !isProduction,
+    useTypescriptCompiler: true,
+    polyfillNonStandardDefaultUsage: true,
+    plugins: [
+      VueComponentPlugin({
+        style: [
+          SassPlugin({
+            importer: true
           }),
-          CSSPlugin(),
-          WebIndexPlugin({
-              template: "./src/index.html"
-          }),
-          isProduction && QuantumPlugin({
-              bakeApiIntoBundle: "vendor",
-              uglify: true,
-              treeshake: true
-          }),
-      ]
+          CSSResourcePlugin(),
+          CSSPlugin({
+            group: 'components.css',
+            inject: 'components.css'
+          })
+        ]
+      }),
+      CSSPlugin(),
+      WebIndexPlugin({
+        title: 'Smartphone App tutorial',
+        template: './src/index.html'
+      }),
+      isProduction && QuantumPlugin({
+        bakeApiIntoBundle: 'vendor',
+        uglify: true,
+        treeshake: true
+      }),
+    ]
   });
 
-  if(!isProduction){
-      fuse.dev({
-          open: true,
-          port: 8080
-      });
+  if(!isProduction) {
+    fuse.dev({
+      open: true,
+      port: 8080
+    });
   }
+});
 
-  const vendor = fuse.bundle("vendor")
-      .instructions("~ index.ts");
+Sparky.task('set-production-state', () => isProduction = true);
 
-  const app = fuse.bundle("app")
-      .instructions("> [index.ts]");
+Sparky.task('clean', () => Sparky.src('./dist').clean('dist/'));
+Sparky.task('watch-assets', () => Sparky.watch('./assets', { base: './src' }).dest('./dist'));
+Sparky.task('copy-assets', () => Sparky.src('./assets', { base: './src' }).dest('./dist'));
+
+Sparky.task('bundle', () => {
+  const vendor = fuse.bundle('vendor')
+  .instructions('~ index.ts');
+
+  const app = fuse.bundle('app')
+    .instructions('> [index.ts]');
 
   if(!isProduction){
-      app.watch().hmr();
+    app.watch().hmr();
   }
-})
+});
 
-Sparky.task("default", ["clean", "watch-assets", "config"], () => {
+Sparky.task('default', ['config', 'clean', 'watch-assets', 'bundle'], () => {
   return fuse.run();
 });
 
-Sparky.task("dist", [ "clean", "copy-assets", "set-prod", "config"], () => {
+Sparky.task('build', ['set-production-state', 'config', 'clean', 'copy-assets', 'bundle'], () => {
   return fuse.run();
 });
