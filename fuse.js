@@ -40,8 +40,9 @@ Sparky.task('config', () => {
       }),
       isProduction && QuantumPlugin({
         bakeApiIntoBundle: 'vendor',
-        uglify: true,
-        treeshake: true
+        uglify: { es6: true },
+        treeshake: true,
+        ensureES5: false
       }),
     ]
   });
@@ -61,14 +62,12 @@ Sparky.task('watch-assets', () => Sparky.watch('./assets', { base: './src' }).de
 Sparky.task('copy-assets', () => Sparky.src('./assets', { base: './src' }).dest('./dist'));
 
 Sparky.task('bundle', () => {
-  const vendor = fuse.bundle('vendor')
-  .instructions('~ index.ts');
+  const vendorBundle = fuse.bundle('vendor').instructions('~ index.ts');
 
-  const app = fuse.bundle('app')
-    .instructions('> [index.ts]');
+  const appBundle = fuse.bundle('app').instructions('> [index.ts]');
 
-  if(!isProduction){
-    app.watch().hmr();
+  if(!isProduction) {
+    appBundle.watch().hmr();
   }
 });
 

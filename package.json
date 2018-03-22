@@ -29,7 +29,7 @@
     "opn": "^5.3.0",
     "postcss-selector-parser": "2.2.3",
     "typescript": "^2.7.2",
-    "uglify-js": "^3.3.16",
+    "uglify-es": "^3.3.9",
     "vue-hot-reload-api": "^2.3.0",
     "vue-template-compiler": "^2.5.16",
     "vue-template-es2015-compiler": "^1.6.0"
