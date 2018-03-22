@@ -1,61 +1,80 @@
-// const { src, task, watch, context, fuse } = require("fuse-box/sparky");
-
 const {
   FuseBox,
   VueComponentPlugin,
   QuantumPlugin,
+  HTMLPlugin,
   SassPlugin,
   CSSPlugin,
   CSSResourcePlugin,
   WebIndexPlugin,
   Sparky
-} = require('fuse-box');
+} = require("fuse-box");
 
+let fuse;
 let isProduction = false;
 
-let fuse = FuseBox.init({
-  homeDir: './src',
-  output: 'dist/$name.js',
-  sourceMaps: true,
-  debug: true,
-  useTypescriptCompiler: true,
-  allowSyntheticDefaultImports: true,
-  "compilerOptions": {
-    "importHelpers": true
-  },
-  plugins: [
-    VueComponentPlugin({
-      style: [
-        SassPlugin({
-            importer: true
-        }),
-        CSSResourcePlugin(),
-        CSSPlugin({
-          group: 'components.css',
-          inject: 'components.css'
-        })
+Sparky.task("set-prod", () => {
+  isProduction = true;
+});
+Sparky.task("clean", () => Sparky.src("./dist").clean("dist/"));
+Sparky.task("watch-assets", () => Sparky.watch("./assets", { base: "./src" }).dest("./dist"));
+Sparky.task("copy-assets", () => Sparky.src("./assets", { base: "./src" }).dest("./dist"));
+
+Sparky.task("config", () => {
+  fuse = FuseBox.init({
+      homeDir: "./src",
+      output: "dist/$name.js",
+      //hash: isProduction,
+      sourceMaps: !isProduction,
+      useTypescriptCompiler: true,
+      polyfillNonStandardDefaultUsage: true,
+      plugins: [
+          VueComponentPlugin({
+              style: [
+                  SassPlugin({
+                      importer: true
+                  }),
+                  CSSResourcePlugin(),
+                  CSSPlugin({
+                      group: 'components.css',
+                      inject: 'components.css'
+                  })
+              ]
+          }),
+          CSSPlugin(),
+          WebIndexPlugin({
+              template: "./src/index.html"
+          }),
+          isProduction && QuantumPlugin({
+              bakeApiIntoBundle: "vendor",
+              uglify: true,
+              treeshake: true
+          }),
       ]
-    }),
-    CSSPlugin(),
-    WebIndexPlugin({
-      title: 'TaskBoard | Task Processing and Handling Board',
-      template: './src/index.html'
-    }),
-    isProduction && QuantumPlugin({
-      bakeApiIntoBundle: 'app',
-      uglify: true,
-      treeshake: true
-    }),
-  ]
+  });
+
+  if(!isProduction){
+      fuse.dev({
+          open: true,
+          port: 8080
+      });
+  }
+
+  const vendor = fuse.bundle("vendor")
+      .instructions("~ index.ts");
+
+  const app = fuse.bundle("app")
+      .instructions("> [index.ts]");
+
+  if(!isProduction){
+      app.watch().hmr();
+  }
+})
+
+Sparky.task("default", ["clean", "watch-assets", "config"], () => {
+  return fuse.run();
 });
 
-fuse.dev({
-  port: 8080,
-  open: true
+Sparky.task("dist", [ "clean", "copy-assets", "set-prod", "config"], () => {
+  return fuse.run();
 });
-
-const appBundle = fuse.bundle('app').instructions('> index.ts');
-appBundle.watch().hmr();
-
-fuse.run();
-
