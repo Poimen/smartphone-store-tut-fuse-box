@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
     "isolatedModules": false,
@@ -12,6 +12,12 @@
     "strictNullChecks": true,
     "noEmitHelpers": true,
     "noLib": false,
-    "outDir": "dist/"
+    "outDir": "dist/",
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "router/*": ["src/router/*"],
+      "pages/*": ["src/pages/*"]
+    }
   }
 }

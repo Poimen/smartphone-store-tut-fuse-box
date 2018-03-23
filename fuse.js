@@ -11,6 +11,7 @@ const {
 } = require('fuse-box');
 
 const eslinter = require('fuse-box-eslint-plugin');
+const fs = require('fs');
 
 let fuse;
 let isProduction = false;
@@ -19,8 +20,10 @@ Sparky.task('config', () => {
   fuse = FuseBox.init({
     homeDir: './src',
     output: 'dist/$name.js',
-    sourceMaps: !isProduction,
+    // sourceMaps: !isProduction,
+    sourceMaps: true,
     useTypescriptCompiler: true,
+    tsConfig: 'tsconfig.json',
     polyfillNonStandardDefaultUsage: true,
     plugins: [
       VueComponentPlugin({
@@ -60,7 +63,10 @@ Sparky.task('config', () => {
 
 Sparky.task('set-production-state', () => isProduction = true);
 
-Sparky.task('clean', () => Sparky.src('./dist').clean('dist/'));
+Sparky.task('clean', ['clean-dist', 'clean-cache'], () => {});
+Sparky.task('clean-dist', () => Sparky.src('./dist').clean('dist/'));
+Sparky.task('clean-cache', () => Sparky.src('./.fusebox').clean('.fusebox/'));
+
 Sparky.task('watch-assets', () => Sparky.watch('./assets', { base: './src' }).dest('./dist'));
 Sparky.task('copy-assets', () => Sparky.src('./assets', { base: './src' }).dest('./dist'));
 
@@ -69,15 +75,22 @@ Sparky.task('bundle', () => {
 
   const appBundle = fuse.bundle('app').instructions('> [index.ts]');
 
+  const dirs = fs.readdirSync('./src');
+
+  for (let dir of dirs) {
+    appBundle.alias(dir, `~/${dir}`)
+    vendorBundle.alias(dir, `~/${dir}`)
+  }
+
   if(!isProduction) {
     appBundle.watch().hmr();
   }
 });
 
-Sparky.task('default', ['config', 'clean', 'watch-assets', 'bundle'], () => {
+Sparky.task('default', ['clean-cache', 'clean', 'config', 'watch-assets', 'bundle'], () => {
   return fuse.run();
 });
 
-Sparky.task('build', ['set-production-state', 'config', 'clean', 'copy-assets', 'bundle'], () => {
+Sparky.task('build', ['clean', 'set-production-state', 'config', 'copy-assets', 'bundle'], () => {
   return fuse.run();
 });
