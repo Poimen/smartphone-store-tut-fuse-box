@@ -10,6 +10,8 @@ const {
   Sparky
 } = require('fuse-box');
 
+const eslinter = require('fuse-box-eslint-plugin');
+
 let fuse;
 let isProduction = false;
 
@@ -38,6 +40,7 @@ Sparky.task('config', () => {
         title: 'Smartphone App tutorial',
         template: './src/index.html'
       }),
+      eslinter({ pattern: '/ts$/' }),
       isProduction && QuantumPlugin({
         bakeApiIntoBundle: 'vendor',
         uglify: { es6: true },
