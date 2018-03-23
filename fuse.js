@@ -39,6 +39,9 @@ Sparky.task('config', () => {
         ]
       }),
       CSSPlugin(),
+      [SassPlugin({
+        importer: true
+      }), CSSPlugin()],
       WebIndexPlugin({
         title: 'Smartphone App tutorial',
         template: './src/index.html'
