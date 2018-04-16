@@ -1,21 +1,31 @@
 <template>
-  <div>
-    <product-form @save-product="addProduct" :model="model"></product-form>
-  </div>
+  <product-form @save-product="addProduct" :model="model" :manufacturers="manufacturers"></product-form>
 </template>
+
+
 <script>
 import ProductForm from 'components/products/productsForm.vue';
 
 export default {
-  methods: {
-    addProduct(model) {
-      console.log(model);
-    }
-  },
-  data() {
+  data () {
     return {
       model: {},
-      isEditing: false
+      manufacturers: [
+        {
+          _id: 'sam',
+          name: 'Samsung',
+        },
+        {
+          _id: 'apple',
+          name: 'Apple',
+        },
+      ],
+    }
+  },
+  methods: {
+    addProduct (model) {
+      console.log('model', model);
+      this.$store.commit('addProduct', product);
     }
   },
   components: {

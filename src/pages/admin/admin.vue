@@ -2,10 +2,10 @@
   <div>
     <div class="admin-new">
       <div class="container">
-        <div class="col-lg3 col-md-3 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <ul class="admin-menu">
-            <li><b-link to="/admin">View Products</b-link></li>
-            <li><b-link to="/admin/new">New Products</b-link></li>
+            <li><router-link to="/admin">View Products</router-link></li>
+            <li><router-link to="/admin/new">New Product</router-link></li>
           </ul>
         </div>
         <router-view></router-view>
@@ -13,6 +13,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'admin',

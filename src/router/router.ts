@@ -9,6 +9,8 @@ import AdminNew from 'pages/admin/new.vue';
 import AdminProducts from 'pages/admin/products.vue';
 import AdminEdit from 'pages/admin/edit.vue';
 
+import Details from 'pages/details.vue';
+
 Vue.use(Router);
 
 export default new Router({
@@ -29,13 +31,19 @@ export default new Router({
       component: AdminProducts
     }, {
       path: 'edit/:id',
-      name: 'Edit'
+      name: 'Edit',
+      component: AdminEdit
     }]
   }, {
     path: '/cart',
     name: 'Cart',
     component: Cart
   }]
+  // }, {
+  //   path: '/details/:id',
+  //   name: 'Details',
+  //   component: Details
+  // }]
 });
 
 

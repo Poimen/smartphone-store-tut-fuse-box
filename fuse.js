@@ -20,8 +20,8 @@ Sparky.task('config', () => {
   fuse = FuseBox.init({
     homeDir: './src',
     output: 'dist/$name.js',
-    // sourceMaps: !isProduction,
-    sourceMaps: true,
+    sourceMaps: !isProduction,
+    // sourceMaps: true,
     useTypescriptCompiler: true,
     tsConfig: 'tsconfig.json',
     polyfillNonStandardDefaultUsage: true,

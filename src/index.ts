@@ -1,14 +1,12 @@
 import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'styles/main.scss';
+import VeeValidate from 'vee-validate';
 
 import router from 'router/router';
 import App from 'pages/app.vue';
-
-import BootstrapVue from 'bootstrap-vue';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-
-import 'styles/main.scss';
-
-import VeeValidate from 'vee-validate';
+import store from 'store/index'
 
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
@@ -16,5 +14,6 @@ Vue.use(VeeValidate);
 new Vue({
   router,
   el: "#app",
+  store,
   render: h => h(App)
 });

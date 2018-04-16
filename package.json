@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Poimen/smartphone-store-tut-fuse-box#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.2",
     "font-awesome": "^4.7.0",
     "vee-validate": "^2.0.6",
