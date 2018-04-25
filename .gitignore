@@ -60,3 +60,6 @@ typings/
 # fuse-box working dir
 .fusebox
 dist
+
+# project excludes
+api-keys.ts
