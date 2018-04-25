@@ -24,13 +24,20 @@
   </div>
 </template>
 
-<script>
-  import ProductButton from 'components/products/productButton.vue'
+<script lang='ts'>
+import ProductButton from 'components/products/productButton.vue';
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import ProductDetails from 'components/products/productDetailsComponent';
 
-  export default {
-    props: ['product'],
-    components: {
-      'product-button': ProductButton
-    }
+@Component
+export default class productDetails extends Vue {
+  @Prop() product: object;
+
+  get components(): object {
+    return {
+      'product-button': ProductButton,
+    };
   }
+}
+
 </script>

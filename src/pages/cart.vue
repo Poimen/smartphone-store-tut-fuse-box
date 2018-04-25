@@ -13,12 +13,6 @@
 <script>
   import ProductDetails from 'components/products/productDetails.vue'
 
-  // export default {
-  //   data() {
-  //     return {}
-  //   }
-  // }
-
   export default {
     data () {
       return {

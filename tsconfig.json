@@ -19,6 +19,8 @@
       "router/*": ["src/router/*"],
       "pages/*": ["src/pages/*"],
       "store/*": ["src/store/*"]
-    }
+    },
+    "inlineSources": true,
+    "importHelpers": true
   }
 }

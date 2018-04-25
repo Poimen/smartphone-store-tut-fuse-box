@@ -6,14 +6,14 @@ import VeeValidate from 'vee-validate';
 
 import router from 'router/router';
 import App from 'pages/app.vue';
-import store from 'store/index'
+import store from 'store/index';
 
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 
 new Vue({
   router,
-  el: "#app",
   store,
+  el: '#app',
   render: h => h(App)
 });
