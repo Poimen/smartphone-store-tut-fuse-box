@@ -1,19 +1,14 @@
 export interface IProduct {
-  id: number;
-  name: string;
-  price: string;
-  manufacturer: string;
-  imageUrl: string;
-
+  setId(id: number): void;
   setImageUrl(url: string): void;
 };
 
 class Product implements IProduct {
-  id: number;
-  name: string;
-  price: string;
-  manufacturer: string;
-  imageUrl: string;
+  private id: number;
+  private name: string;
+  private price: string;
+  private manufacturer: string;
+  private imageUrl: string;
 
   constructor(id: number, name: string, price: string, manufacturer: string) {
     this.id = id;
@@ -23,14 +18,18 @@ class Product implements IProduct {
     this.imageUrl = '';
   }
 
+  setId(id: number) {
+    this.id = id;
+  }
+
   setImageUrl(url: string) {
     this.imageUrl = url;
   }
 };
 
 export class ProductsDataProvider {
-  products: IProduct[];
-  lastId: number;
+  private products: IProduct[];
+  private lastId: number;
 
   constructor() {
     this.products = [
@@ -42,9 +41,17 @@ export class ProductsDataProvider {
     this.lastId = 3;
   }
 
-  addProducts(product: IProduct) {
-    product.id = ++this.lastId;
+  addProduct(product: IProduct) {
+    product.setId(++this.lastId);
     this.products.push(product)
+  }
+
+  removeProduct(id: number) {
+
+  }
+
+  get allProducts(): IProduct[] {
+    return this.products;
   }
 };
 
