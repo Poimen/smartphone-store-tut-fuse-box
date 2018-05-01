@@ -1,16 +1,13 @@
 import { INasaApiHandler } from './api.interfaces';
-import ApodApi from './apod';
+import { ApodApi } from './apod';
 
-class NasaApi {
+export class NasaApi {
   apod: INasaApiHandler;
   constructor() {
     this.apod = new ApodApi();
   }
 
-  getPictureUrlByDate(date: string): string {
-    return '';
+  getPictureOfTheDay(date: string): Promise<string> {
+    return this.apod.fetchImageUrl(date);
   }
 }
-
-export default NasaApi;
-

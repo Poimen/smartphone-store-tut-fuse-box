@@ -1,6 +1,8 @@
 export const productGetters = {
   allProducts: (state, getters) => {
-    return state.products
+    console.log('getting all products from store...');
+
+    return state.products;
   },
   productById: (state, getters) => id => {
     if (getters.allProducts.length > 0) {

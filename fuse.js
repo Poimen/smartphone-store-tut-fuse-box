@@ -18,6 +18,7 @@ let isProduction = false;
 
 Sparky.task('config', () => {
   fuse = FuseBox.init({
+    target: 'browser',
     homeDir: './src',
     output: 'dist/$name.js',
     sourceMaps: !isProduction,

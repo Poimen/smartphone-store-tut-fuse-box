@@ -5,7 +5,7 @@ import 'styles/main.scss';
 import VeeValidate from 'vee-validate';
 
 import router from 'router/router';
-import App from 'pages/app.vue';
+import App from 'pages/App.vue';
 import store from 'store/index';
 
 Vue.use(BootstrapVue);

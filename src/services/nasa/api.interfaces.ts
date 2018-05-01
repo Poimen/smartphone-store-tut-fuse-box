@@ -1,9 +1,9 @@
 
 export interface IApiDetails {
-  url: string;
+  endpoint: string;
   apikey: string;
 }
 
 export interface INasaApiHandler {
-  fetchImageUrl(): string;
+  fetchImageUrl(date: string): Promise<string>;
 }

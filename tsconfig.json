@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -18,7 +19,8 @@
       "components/*": ["src/components/*"],
       "router/*": ["src/router/*"],
       "pages/*": ["src/pages/*"],
-      "store/*": ["src/store/*"]
+      "store/*": ["src/store/*"],
+      "services/*": ["src/services/*"]
     },
     "inlineSources": true,
     "importHelpers": true

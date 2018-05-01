@@ -4,7 +4,7 @@
 
 
 <script>
-import ProductForm from 'components/products/productsForm.vue';
+import ProductForm from 'components/products/ProductsForm.vue';
 
 export default {
   data () {

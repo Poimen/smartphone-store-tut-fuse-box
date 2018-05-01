@@ -13,11 +13,12 @@ import {
   ALL_PRODUCTS_SUCCESS,
   ALL_MANUFACTURERS,
   ALL_MANUFACTURERS_SUCCESS
-} from 'store/mutationTypes'
+} from 'store/mutationTypes';
 
 
 export const productMutations = {
   [ALL_PRODUCTS] (state) {
+    console.log('mutating all products');
     state.showLoader = true
   },
   [ALL_PRODUCTS_SUCCESS] (state, payload) {

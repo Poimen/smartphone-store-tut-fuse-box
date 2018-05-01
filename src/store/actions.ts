@@ -1,4 +1,6 @@
-import axios from 'axios'
+import axios from 'axios';
+import { NasaApi } from 'services/nasa/nasaApi';
+// import * as superagent from 'superagent';
 // const API_BASE = '<API-URL/api/vi>'
 
 import {
@@ -14,11 +16,21 @@ import {
   ALL_PRODUCTS_SUCCESS,
   ALL_MANUFACTURERS,
   ALL_MANUFACTURERS_SUCCESS
-} from 'store/mutationTypes'
+} from 'store/mutationTypes';
+
+const nasaApi = new NasaApi();
 
 export const productActions = {
   allProducts ({commit}) {
-    commit(ALL_PRODUCTS)
+    console.log('commit all products action');
+    commit(ALL_PRODUCTS);
+
+    nasaApi.getPictureOfTheDay('')
+      .then(url => {
+        console.log(`url ${url}`);
+        commit(ALL_PRODUCTS_SUCCESS, url);
+      });
+
     // Fetch actual products from the API
     // axios.get(`${API_BASE}/products`).then(response => {
     //   commit(ALL_PRODUCTS_SUCCESS, response.data)
@@ -53,4 +65,4 @@ export const productActions = {
     //   commit(REMOVE_PRODUCT_SUCCESS, response.data)
     // })
   }
-}
+};

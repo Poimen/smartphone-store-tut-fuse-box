@@ -25,9 +25,9 @@
 </template>
 
 <script lang='ts'>
-import ProductButton from 'components/products/productButton.vue';
+import ProductButton from 'components/products/ProductButton.vue';
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import ProductDetails from 'components/products/productDetailsComponent';
+// import ProductDetails from 'components/products/ProductDetailsComponent';
 
 @Component
 export default class productDetails extends Vue {

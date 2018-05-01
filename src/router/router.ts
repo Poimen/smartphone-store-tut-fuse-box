@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Home from 'pages/home.vue';
-import Cart from 'pages/cart.vue';
+import Home from 'pages/Home.vue';
+import Cart from 'pages/Cart.vue';
 
-import Admin from 'pages/admin/admin.vue';
-import AdminNew from 'pages/admin/new.vue';
-import AdminProducts from 'pages/admin/products.vue';
-import AdminEdit from 'pages/admin/edit.vue';
+import Admin from 'pages/admin/Admin.vue';
+import AdminNew from 'pages/admin/New.vue';
+import AdminProducts from 'pages/admin/Products.vue';
+import AdminEdit from 'pages/admin/Edit.vue';
 
-import Details from 'pages/details.vue';
+import Details from 'pages/Details.vue';
 
 Vue.use(Router);
 

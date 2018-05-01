@@ -7,14 +7,19 @@
   </div>
 </template>
 
-<script>
-  import ProductList from 'components/products/productList.vue'
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import ProductList from 'components/products/ProductList.vue'
 
-  export default {
-    name: 'home',
-    components: {
-      'product-list': ProductList
-    }
+@Component({
+  components: {
+    'product-list': ProductList
   }
+})
+export default class Home extends Vue {
+  get name(): string {
+    return 'home';
+  }
+}
 </script>
 

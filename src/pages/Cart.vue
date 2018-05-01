@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import ProductDetails from 'components/products/productDetails.vue'
+  import ProductDetails from 'components/products/ProductDetails.vue'
 
   export default {
     data () {
