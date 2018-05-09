@@ -13,12 +13,26 @@
       </b-collapse>
     </b-navbar>
     <router-view></router-view>
+    <button @click="clicked"></button>
+    <notifications group="foo" />
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator';
 
+@Component
+export default class App extends Vue {
+  created() {
+  }
+
+  clicked() {
+    this.$notify({
+      group: 'foo',
+      title: 'Important message',
+      text: 'Hello user! This is a notification!'
+    });
+  }
 }
 </script>
 
